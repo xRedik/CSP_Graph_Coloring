@@ -2,7 +2,7 @@ from gui import GUI
 from file import File_handler
 
 def main():
-    file = File_handler("input_text.txt")
+    file = File_handler("input_files/input_text.txt")
     _, vertex_list = file.construct_graph_from_file()
     color_list = file.choose_colors()
     gui = GUI(vertex_list)
