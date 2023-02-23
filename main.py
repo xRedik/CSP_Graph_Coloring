@@ -1,11 +1,12 @@
-from read_initialize import *
 from gui import GUI
+from file import File_handler
 
 def main():
-    num_colors, node_class_lists = read_file("input_text.txt")
-    color_list = choose_colors(num_colors)
-    gui = GUI(node_class_lists)
-    while True:        
+    file = File_handler("input_text.txt")
+    _, vertex_list = file.construct_graph_from_file()
+    color_list = file.choose_colors()
+    gui = GUI(vertex_list)
+    while True:
         gui.check_events()
         gui.update_graph()
         gui.refresh_window()

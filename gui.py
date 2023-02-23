@@ -3,17 +3,16 @@ import math
 import sys
 
 class GUI():
-    def __init__(self,vertex_list,resolution = (1280,720), vertex_radius = 20, 
-                 boundary_x = 150, boundary_y = 50, fps = 60, font_size = 15):
+    resolution = (1280,720)
+    boundary = (150,50)
+    def __init__(self,vertex_list, vertex_radius = 20, fps = 60, font_size = 15):
         self.vertex_list = vertex_list
-        self.resolution = resolution
         self.vertex_radius = vertex_radius
-        self.boundary_x, self.boundary_y = boundary_x, boundary_y
         self.fps = fps
         self.font_size = font_size
         self.lmb_state = False
         pygame.init()
-        self.window = pygame.display.set_mode(self.resolution)
+        self.window = pygame.display.set_mode(GUI.resolution)
         pygame.display.set_caption("CSP Graph Coloring by Farid Guliyev")
         self.clock = pygame.time.Clock()
         self.window.fill((255, 255, 255))
@@ -28,7 +27,6 @@ class GUI():
                      self.lmb_state = False
             if e.type == pygame.QUIT:
                 sys.exit()
-                
 
     def update_graph(self):
         self.add_edges()
@@ -51,15 +49,14 @@ class GUI():
             br = pygame.draw.circle(self.window, (0,0,0), vertex.position, self.vertex_radius)
             self._add_name(vertex)
             
-            #DEYIW
-            if br.collidepoint(new_x, new_y) and self.lmb_state:
-                vertex.clicked = True
-            if vertex.clicked and not self.lmb_state:
-                vertex.clicked = False
-
-            if vertex.clicked:
+            if vertex.pressed:
                 vertex.pos_x = new_x
                 vertex.pos_y = new_y
+            
+            if br.collidepoint(new_x, new_y) and self.lmb_state:
+                vertex.pressed = True
+            elif vertex.pressed and not self.lmb_state:
+                vertex.pressed = False
 
     def _add_name(self,vertex):
         font = pygame.font.Font(pygame.font.get_default_font(), self.font_size)
@@ -78,8 +75,8 @@ class GUI():
                 euc_distance = math.hypot(dx, dy) + 1
                 
                 if euc_distance < self.vertex_radius + 50:
-                    vertex_1.pos_x -= int(vertex_1.repel * (dx / euc_distance))
-                    vertex_1.pos_y -= int(vertex_1.repel * (dy / euc_distance))
+                    vertex_1.pos_x -= int(vertex_1.repelsion_force * (dx / euc_distance))
+                    vertex_1.pos_y -= int(vertex_1.repelsion_force * (dy / euc_distance))
         
             vertex_1.position = (vertex_1.pos_x, vertex_1.pos_y)
 
