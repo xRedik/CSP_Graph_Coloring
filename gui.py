@@ -35,7 +35,7 @@ class GUI():
     
     def add_edges(self):
         for vertex in self.vertex_list:
-            for path in vertex.paths:
+            for path in vertex.paths:   
                 pygame.draw.line(self.window, (0,0,0), vertex.position, self._get_pos_from_value(path))
 
     def _get_pos_from_value(self,path):
