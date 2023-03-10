@@ -1,3 +1,6 @@
+from os import environ
+environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+
 import pygame
 import math
 import sys
@@ -43,10 +46,10 @@ class GUI():
             if vertex.value == path:
                 return vertex.position
 
-    def add_vertex(self):
+    def add_vertex(self,color = (0,0,0)):
         new_x, new_y = pygame.mouse.get_pos()
         for vertex in self.vertex_list:
-            br = pygame.draw.circle(self.window, (0,0,0), vertex.position, self.vertex_radius)
+            br = pygame.draw.circle(self.window, color, vertex.position, self.vertex_radius)
             self._add_name(vertex)
             
             if vertex.pressed:

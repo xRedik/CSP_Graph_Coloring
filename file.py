@@ -57,7 +57,12 @@ class File_handler():
                     else:
                         self.dict_graph[from_n] = {to_n}
 
-        return self.num_colors, self.add_paths()
+                    if to_n in self.dict_graph:
+                        self.dict_graph[to_n].add(from_n)
+                    else:
+                        self.dict_graph[to_n] = {from_n}
+
+        return self.add_paths(), self.dict_graph, self.choose_colors()
 
     def generate_random_pos(self):
         random_x = random.randint(GUI.boundary[0] - 50,
@@ -84,4 +89,5 @@ class File_handler():
     def choose_colors(self):
         if self.num_colors>len(self.dict_colors)-1:
             raise Exception("More than 7 different colors are not supported")
-        return random.sample(list(self.dict_colors.items())[::-1],self.num_colors)
+        return random.sample(list(self.dict_colors)[:-1],self.num_colors)
+        #return random.sample(list(self.dict_colors.items())[::-1],self.num_colors)
