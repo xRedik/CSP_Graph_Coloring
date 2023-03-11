@@ -8,12 +8,23 @@ import sys
 class GUI():
     resolution = (1280,720)
     boundary = (150,50)
-    def __init__(self,vertex_list, vertex_radius = 20, fps = 60, font_size = 15):
-        self.vertex_list = vertex_list
+    def __init__(self,vertex_list, chosen_dict_colors, assignment = None, 
+                 vertex_radius = 20, fps = 60, font_size = 15, automatic = False):
+        self.vertex_list = sorted(vertex_list, key = lambda v: v.value)
         self.vertex_radius = vertex_radius
         self.fps = fps
         self.font_size = font_size
         self.lmb_state = False
+        self.chosen_dict_colors = chosen_dict_colors
+        self.csp_assignment = assignment
+        self.index = 0
+        self.max_limit = len(self.vertex_list)
+        self.auto = automatic
+        
+        if self.auto:
+            for vertex in self.vertex_list:
+                vertex.color = self.csp_assignment[vertex.value]
+        
         pygame.init()
         self.window = pygame.display.set_mode(GUI.resolution)
         pygame.display.set_caption("CSP Graph Coloring by Farid Guliyev")
@@ -28,8 +39,23 @@ class GUI():
             if e.type == pygame.MOUSEBUTTONUP:
                 if e.button == pygame.BUTTON_LEFT:
                      self.lmb_state = False
-            if e.type == pygame.QUIT:
+            
+            if e.type == pygame.KEYUP and not self.auto:
+                if e.key == pygame.K_LEFT:
+                    if self.index == self.max_limit:
+                        self.index-=1
+                    self.vertex_list[self.index].color = "default"
+                    if self.index>0:
+                        self.index-=1
+                elif e.key == pygame.K_RIGHT:
+                    if self.index>=self.max_limit:
+                        continue
+                    self.vertex_list[self.index].color = self.csp_assignment[self.vertex_list[self.index].value]
+                    self.index+=1
+    
+            elif e.type == pygame.QUIT:
                 sys.exit()
+
 
     def update_graph(self):
         self.add_edges()
@@ -46,10 +72,10 @@ class GUI():
             if vertex.value == path:
                 return vertex.position
 
-    def add_vertex(self,color = (0,0,0)):
+    def add_vertex(self):
         new_x, new_y = pygame.mouse.get_pos()
         for vertex in self.vertex_list:
-            br = pygame.draw.circle(self.window, color, vertex.position, self.vertex_radius)
+            br = pygame.draw.circle(self.window, self.chosen_dict_colors[vertex.color], vertex.position, self.vertex_radius)
             self._add_name(vertex)
             
             if vertex.pressed:

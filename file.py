@@ -9,8 +9,9 @@ class Vertex():
         self.position = (self.pos_x,self.pos_y)
         self.repelsion_force = repelsion_force
         self.pressed = False
+        self.color = 'default'
 
-class File_handler():
+class File_to_Graph():
     def __init__(self, filename):
         self.filename = filename
         self.num_colors = 0
@@ -37,10 +38,11 @@ class File_handler():
                     continue
                 
                 elif line[0:6].lower() == "colors":
-                    self.num_colors = int(line[-1])
+                    self.num_colors = int(line.split('=')[1].strip())
                 
                 elif line[0].isdigit():
-                    from_n, to_n = int(line[0]), int(line[-1])
+                    from_n, to_n = line.strip().split(',')
+                    from_n, to_n = int(from_n), int(to_n)
 
                     if from_n not in added_vertex:
                         self.vertex_list.append(self.create_vertex(from_n))
@@ -87,7 +89,19 @@ class File_handler():
         return self.vertex_list
 
     def choose_colors(self):
+
+        #condition that if number of color is supported by this program
         if self.num_colors>len(self.dict_colors)-1:
             raise Exception("More than 7 different colors are not supported")
-        return random.sample(list(self.dict_colors)[:-1],self.num_colors)
-        #return random.sample(list(self.dict_colors.items())[::-1],self.num_colors)
+        
+        #we convert the dictionary to the list of tuples 
+        #then choose the random colors from dictionary 
+        #(except default) and then convert it again dictionary
+        choosen_dict_colors = dict(random.sample(list(self.dict_colors.items())[:-1],self.num_colors))
+
+        
+        #last we add the default color to new ditionary and return it
+        choosen_dict_colors['default'] = (0,0,0)
+        
+        return choosen_dict_colors
+    
