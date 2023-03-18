@@ -15,19 +15,19 @@ def main():
     parser = argparse.ArgumentParser()
 
     # Filename argument. It is required by program
-    parser.add_argument("-f", "--filename",dest ="filename", help="Name of the input file")
+    parser.add_argument("-f", "--filename",dest ="filename", help="name of the input file")
     
     # Display GUI argument. Not required. Default value is True. 
     # It means GUI will be displayed in default value
     parser.add_argument("-g", "--gui", dest = "display_gui", 
-                        help="Display GUI",
+                        help="display GUI",
                         action=argparse.BooleanOptionalAction, default = True)
     
     # Automatic Coloring method argument. Not required. Default value is True. 
     # It means GUI will be displayed with the colors of the Vertex that assigned by CSP
     # When this argument is False. Color of the vertexes will be displayed one by one with the left and right keys
     parser.add_argument("-a", "--auto", dest = "auto_coloring_method", 
-                        help="Automatic Coloring method", 
+                        help="automatic Coloring method", 
                         action=argparse.BooleanOptionalAction, default=True)
     
     # Executing test scripts argument. Default value is True. It means tests will be executed automatically.
@@ -43,6 +43,9 @@ def main():
     display_gui = args.display_gui
     auto_cm = args.auto_coloring_method
     run_test = args.run_test
+
+    if filename is None:
+        raise NameError("Please add the name of the file with f flag")
 
     print("==========CONFIGURATION==========")
 
