@@ -133,7 +133,7 @@ class GUI():
                         vertex.pos_y-(h/2)))
 
     # The method for making the graph flexible
-    # This method is helping is to moving around the vertices 
+    # this method is helping is to moving around the vertices 
     # while considering the relationship between other vertices
     def make_graph_flexible(self):
         for i, vertex_1 in enumerate(self.vertex_list):
