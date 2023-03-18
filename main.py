@@ -1,13 +1,9 @@
-import sys
 import os
 import argparse
-
 from gui import GUI
 from file import File_to_Graph
 from csp import CSP
-
-#test cases
-#comments
+import subprocess
 
 def main():
     
@@ -70,7 +66,8 @@ def main():
         print("\tThe test script is executed (default mode)\n")
 
         print("==========TEST RESULT==========")
-        #add the code
+        output_test = subprocess.run(['python', 'test_csp.py'], stdout=subprocess.PIPE)
+        print(output_test.stdout.decode('utf-8'))
     else:
         print("\tThe execution of the test script is disabled\n")
 
@@ -87,7 +84,7 @@ def main():
 
     # calling the method of that object and unpack the tuple 
     class_vertex_list, dict_graph, dict_color = file.construct_graph_from_file()
-
+    
     # creating object from the CSP class and add graph and color dictionaries arguments
     csp = CSP(dict_graph, dict_color)
 
