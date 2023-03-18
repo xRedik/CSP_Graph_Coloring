@@ -14,7 +14,7 @@ class Vertex():
         self.color = 'default'
 
 # The File_to_Graph class for reading the file and 
-# consturcting the appropriate variables from that file
+# constructing the graph and other appropriate variables from that file
 class File_to_Graph():
     def __init__(self, filename):
         self.filename = filename
@@ -68,9 +68,9 @@ class File_to_Graph():
                     if self.is_exist(from_n, to_n):
                         continue
                     
-                    # if first variable is already in dictionary, then we can add the new neighbor
-                    # else we create the new key and set pair and initialize it
-                    # we do it for both cases because our graph is undirected
+                        # if first variable is already in dictionary, then we can add the new neighbor
+                        # else we create the new key and set pair and initialize it
+                        # we do it for both cases because our graph is undirected
                     if from_n in self.dict_graph:
                         self.dict_graph[from_n].add(to_n)
                     else:
@@ -83,7 +83,7 @@ class File_to_Graph():
                     else:
                         self.dict_graph[to_n] = {from_n}
 
-        # returning the vertex classes, ditionart of the graph and color dictionary as tuple
+        # returning the vertex classes, dictionary of the graph and color dictionary as tuple
         return self.add_paths(), self.dict_graph, self.choose_colors()
 
     # The method for creating the vertex object with random position on window

@@ -147,7 +147,7 @@ class GUI():
                 dx, dy = vertex_2.pos_x - vertex_1.pos_x, vertex_2.pos_y - vertex_1.pos_y
                 euc_distance = math.hypot(dx, dy) + 1
                 
-                # calculating the new position based on the repelsion force and distance
+                # calculating the new position based on the repulsion  force and distance
                 if euc_distance < self.vertex_radius + 50:
                     vertex_1.pos_x -= int(vertex_1.repelsion_force * (dx / euc_distance))
                     vertex_1.pos_y -= int(vertex_1.repelsion_force * (dy / euc_distance))

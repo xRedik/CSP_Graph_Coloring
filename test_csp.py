@@ -54,7 +54,7 @@ class TestCSP(unittest.TestCase):
         assert csp.ac3() == True
 
     # test ac3 with inconsistent values
-    def test_csp_inconsistent_values(self):
+    def test_ac3_inconsistent_values(self):
         test_graph = {1 : {2}, 2 : {1,3}, 3 : {2}}
         test_dict_colors = {'red': (255,0,0), 'blue': (0,0,255), 
                             'green': (0,255,0), 'default': (0,0,0)}

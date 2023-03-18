@@ -49,9 +49,9 @@ class CSP:
         
         # iterate over domains of v1
         for x in self.domains[v1]:
-            # if there is no consistent value, removes the inconsistent value
+
+            # if there is no consistent value, remove the inconsistent value
             # and make the flag true
-            
             if not any(self.constraints[v1, v2](x, y) for y in self.domains[v2]):
                 self.domains[v1].remove(x)
                 removed = True
@@ -82,7 +82,7 @@ class CSP:
             for value in self.domains[eq_var]:
                     value_conf[value]+=1
         
-        # sorting the domains of that variable based on that ditionary
+        # sorting the domains of that variable based on that dictionary 
         return sorted(self.domains[variable], key = lambda v: value_conf[v])
 
     # the backtracking algorithm for solving a csp
@@ -126,9 +126,8 @@ class CSP:
         print("==========RESULT==========")
 
         # checking if coloring was possible or not
-        if self.assignment is None:
-            print("It is impossible to color the graph with {} number of color".format(len(self.color_list)))
-            return
+        if len(self.assignment)==0:
+            raise Exception("It is impossible to color the graph with {} number of color".format(len(self.color_list)))
         
         # iterating over assignment dictionary and priting the vertex value and its color
         for vertex, color in self.assignment.items():

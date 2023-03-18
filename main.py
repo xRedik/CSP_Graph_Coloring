@@ -40,6 +40,7 @@ def main():
     auto_cm = args.auto_coloring_method
     run_test = args.run_test
 
+    # checking if user added the name of the file or not
     if filename is None:
         raise NameError("Please add the name of the file with f flag")
 
@@ -70,10 +71,6 @@ def main():
         print(output_test.stdout.decode('utf-8'))
     else:
         print("\tThe execution of the test script is disabled\n")
-
-    # checking if user added the name of the file or not
-    if filename is None:
-        raise Exception("Please add the second argument for the name of the file")
     
     # checking the existence of the file
     if not os.path.isfile(filename):
