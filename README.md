@@ -1,1 +1,1 @@
-# CSP_Graph_Coloring
+# CSP Graph Coloring (Farid Guliyev)
